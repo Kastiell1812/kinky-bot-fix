@@ -1,0 +1,3 @@
+BOT_TOKEN = "8026683478:AAFTIgkpRGPHlogogLRwMMFXgOKJVgJBof0"
+ADMIN_ID = 7664715108
+ADMIN_CHAT_ID = 7664715108  # Твій Telegram user_id адміністратора
