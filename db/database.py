@@ -1,6 +1,6 @@
 import aiosqlite
 from datetime import datetime
-from db.database import delete_user
+from aiogram import types
 
 DB_PATH = "database.db"
 
@@ -71,11 +71,15 @@ async def check_match(user1_id: int, user2_id: int) -> bool:
         row = await cursor.fetchone()
         return row is not None
 
+async def delete_user(user_id: int):
+    async with aiosqlite.connect(DB_PATH) as db:
+        await db.execute("DELETE FROM users WHERE user_id = ?", (user_id,))
+        await db.commit()
+
 async def cmd_delete_profile(message: types.Message):
     user_id = message.from_user.id
     await delete_user(user_id)
     await message.answer("Твою анкету видалено.")
-
 
 async def get_user_language(user_id: int):
     async with aiosqlite.connect(DB_PATH) as db:
