@@ -7,7 +7,7 @@ async def process_verify(callback: types.CallbackQuery):
     await callback.message.edit_reply_markup()  # Прибрати кнопки
     await bot.send_message(callback.from_user.id, "Анкету верифіковано.")
     await bot.send_message(user_id, "✅ Твою анкету підтверджено! Тепер ти можеш переглядати інших користувачів.")
-    await show_main_menu(user_id)  # Відправляємо кнопки
+    await show_main_menu(user_id, bot)  # Відправляємо кнопки
     from handlers.profiles import start_browsing_after_verification
     await start_browsing_after_verification(user_id)
 

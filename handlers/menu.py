@@ -1,4 +1,3 @@
-# handlers/menu.py
 from aiogram import types, Dispatcher
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from db.database import get_user_language
@@ -18,7 +17,6 @@ RULES_RU = (
     "3. Никаких продаж."
 )
 
-# Клавіатура головного меню з кнопкою "Правила"
 def get_main_menu():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(KeyboardButton("🔍 Перегляд анкет"))
@@ -39,6 +37,13 @@ async def cmd_rules(message: types.Message):
         await message.answer(RULES_UK)
     else:
         await message.answer(RULES_RU)
+
+# Ось додана функція для адмінів чи інших хендлерів
+async def show_main_menu(chat_id: int, bot):
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+    keyboard.add(KeyboardButton("🔍 Перегляд анкет"))
+    keyboard.add(KeyboardButton("📜 Правила"))
+    await bot.send_message(chat_id, "Головне меню:", reply_markup=keyboard)
 
 def register_handlers_menu(dp: Dispatcher):
     dp.register_message_handler(cmd_start, commands=["start"])
